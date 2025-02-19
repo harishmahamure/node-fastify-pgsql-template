@@ -1,8 +1,12 @@
 import { UserType } from "../constants/user-types";
-import { UserRegisterDTO } from "../dto/user";
+import { RegisterRequest } from "../dto/user";
 import { UserRepository } from "../repositories/user";
 import { AuthUtil } from "../utils/jwt";
 import { SecurityUtil } from "../utils/password";
+
+interface UserRegisterData extends RegisterRequest {
+  role: UserType;
+}
 
 export class UserService {
   static async login(email: string, password: string) {
@@ -25,12 +29,20 @@ export class UserService {
     }
 
     return {
+      user: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+      },
       accessToken: AuthUtil.signAccessToken({ id: user.id, role: user.role }),
       refreshToken: AuthUtil.signRefreshToken({ id: user.id }),
     };
   }
 
-  static async register(user: UserRegisterDTO) {
+  static async register(user: UserRegisterData) {
     const userExists = await UserRepository.findUserByEmail(user.email);
 
     if (userExists) {

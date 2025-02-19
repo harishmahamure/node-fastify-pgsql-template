@@ -1,8 +1,11 @@
 import db from "../config/db";
 import { UserType } from "../constants/user-types";
-import { UserRegisterDTO } from "../dto/user";
+import { RegisterRequest } from "../dto/user";
 import { UserModel } from "../models/user";
 
+interface UserRegisterData extends RegisterRequest {
+  role: UserType;
+}
 export class UserRepository {
   static async findUserByEmail(email: string) {
     return db.oneOrNone<UserModel>("SELECT * FROM users WHERE email = $1", [
@@ -10,8 +13,8 @@ export class UserRepository {
     ]);
   }
 
-  static async createUser(user: UserRegisterDTO) {
-    return db.one(
+  static async createUser(user: UserRegisterData) {
+    return db.one<UserModel>(
       "INSERT INTO users (firstName, lastName, email, username, password, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         user.firstName,
