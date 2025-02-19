@@ -1,23 +1,19 @@
 import jwt from "jsonwebtoken";
 
-export class JwtUtil {
-  private secretKey: jwt.Secret;
-
-  constructor(secretKey: string) {
-    this.secretKey = secretKey;
+export class AuthUtil {
+  static signToken(
+    payload: object,
+    secret: string,
+    expiresIn = "3600"
+  ): string {
+    return jwt.sign(payload, secret, { expiresIn: expiresIn as any });
   }
 
-  sign(payload: object, expiresIn = "3600"): string {
-    return jwt.sign(payload, this.secretKey, { expiresIn: expiresIn as any });
-  }
-
-  verify<T>(token: string): T | null {
+  static verifyToken<T>(token: string, secret: string): T | null {
     try {
-      return jwt.verify(token, this.secretKey) as T;
+      return jwt.verify(token, secret) as T;
     } catch (error) {
-      return null;
+      throw new Error("Invalid token");
     }
   }
 }
-
-jwt.sign({ har: "1" }, "");
