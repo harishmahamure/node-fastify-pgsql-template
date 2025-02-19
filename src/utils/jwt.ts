@@ -1,19 +1,31 @@
 import jwt from "jsonwebtoken";
 
 export class AuthUtil {
-  static signToken(
-    payload: object,
-    secret: string,
-    expiresIn = "3600"
-  ): string {
-    return jwt.sign(payload, secret, { expiresIn: expiresIn as any });
+  static signAccessToken(payload: object): string {
+    return jwt.sign(payload, process.env.JWT_SECRET!, {
+      expiresIn: process.env.JWT_EXPIRY! as any,
+    });
   }
 
-  static verifyToken<T>(token: string, secret: string): T | null {
+  static signRefreshToken(payload: object): string {
+    return jwt.sign(payload, process.env.JWT_REFRESH_SECRET!, {
+      expiresIn: process.env.JWT_REFRESH_EXPIRY! as any,
+    });
+  }
+
+  static verifyAccessToken<T>(token: string): T | null {
     try {
-      return jwt.verify(token, secret) as T;
-    } catch (error) {
-      throw new Error("Invalid token");
+      return jwt.verify(token, process.env.JWT_SECRET! as any) as T;
+    } catch {
+      return null;
+    }
+  }
+
+  static verifyRefreshToken<T>(token: string): T | null {
+    try {
+      return jwt.verify(token, process.env.JWT_REFRESH_SECRET! as any) as T;
+    } catch {
+      return null;
     }
   }
 }
