@@ -8,9 +8,13 @@ interface UserRegisterData extends RegisterRequest {
 }
 export class UserRepository {
   static async findUserByEmail(email: string) {
-    return db.oneOrNone<UserModel>("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    try {
+      return db.oneOrNone<UserModel>("SELECT * FROM users WHERE email = $1", [
+        email,
+      ]);
+    } catch (error) {
+      throw new Error("Internal Server Error");
+    }
   }
 
   static async createUser(user: UserRegisterData) {
