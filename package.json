@@ -27,6 +27,8 @@
     "pg-promise": "^11.10.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@eslint/compat": "^1.2.7",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.4",
