@@ -21,7 +21,7 @@ export class UserService {
     const isValidPassword = SecurityUtil.comparePassword(
       password,
       salt,
-      user.password
+      user.password,
     );
 
     if (!isValidPassword || !user) {
@@ -53,5 +53,9 @@ export class UserService {
     const password = SecurityUtil.hashPassword(user.password, salt);
 
     return await UserRepository.createUser({ ...user, password });
+  }
+
+  static async getUser(id: number) {
+    return await UserRepository.getUserDetails(id);
   }
 }

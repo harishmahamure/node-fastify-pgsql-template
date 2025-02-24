@@ -1,13 +1,13 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { UserService } from "../services/users";
-import { LoginRequest, RegisterRequest } from "../dto/user";
 import { UserType } from "../constants/user-types";
+import { LoginRequest, RegisterRequest } from "../dto/user";
+import { UserService } from "../services/users";
 import { ResponseUtil } from "../utils/response";
 
 export default class UserController {
   static async login(
     req: FastifyRequest<{ Body: LoginRequest }>,
-    res: FastifyReply
+    res: FastifyReply,
   ) {
     try {
       const { email, password } = req.body;
@@ -23,7 +23,7 @@ export default class UserController {
 
   static async register(
     req: FastifyRequest<{ Body: RegisterRequest }>,
-    res: FastifyReply
+    res: FastifyReply,
   ) {
     try {
       const { email, firstName, lastName, password, username } = req.body;
