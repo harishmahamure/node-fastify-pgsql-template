@@ -1,4 +1,4 @@
-import { UserType } from "../constants/user-types";
+import { UserType } from '../constants/user-types';
 
 interface UTM {
   source: string;
@@ -22,16 +22,16 @@ export interface UserModel {
 }
 
 export const userTable = {
-  id: "id",
-  firstName: "firstName",
-  lastName: "lastName",
-  email: "email",
-  username: "username",
-  password: "password",
-  role: "role",
-  updatedAt: "updatedAt",
-  isActive: "isActive",
-  utm: "utm",
-  isVerified: "isVerified",
-  created_at: "created_at",
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  username: 'username',
+  password: 'password',
+  role: 'role',
+  updatedAt: 'updatedAt',
+  isActive: 'isActive',
+  utm: 'utm',
+  isVerified: 'isVerified',
+  created_at: 'created_at',
 };

@@ -1,5 +1,5 @@
-import pgPromise from "pg-promise";
-import dotenv from "dotenv";
+import pgPromise from 'pg-promise';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -7,7 +7,7 @@ const pgp = pgPromise({
   capSQL: true,
   query: (e) => console.log(e.query),
   error: (err, e) => {
-    console.error("DB Error:", err, "Query:", e.query);
+    console.error('DB Error:', err, 'Query:', e.query);
   },
 });
 
@@ -22,7 +22,7 @@ const db = pgp({
 });
 
 db.connect().then(() => {
-  console.log("Connected to the database");
+  console.log('Connected to the database');
 });
 
 export default db;

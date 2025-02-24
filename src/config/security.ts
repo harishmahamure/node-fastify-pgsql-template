@@ -1,6 +1,6 @@
-import { FastifyInstance } from "fastify";
-import cors from "@fastify/cors";
-import fastifyHelmet from "@fastify/helmet";
+import { FastifyInstance } from 'fastify';
+import cors from '@fastify/cors';
+import fastifyHelmet from '@fastify/helmet';
 
 export default async function securityConfig(app: FastifyInstance) {
   await app.register(fastifyHelmet, {
@@ -13,7 +13,7 @@ export default async function securityConfig(app: FastifyInstance) {
   });
 
   await app.register(cors, {
-    origin: [process.env.CORS_ORIGIN || "*"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [process.env.CORS_ORIGIN || '*'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
 }

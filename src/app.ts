@@ -1,6 +1,6 @@
-import Fastify from "fastify";
+import Fastify from 'fastify';
 
-import securityConfig from "./config/security";
+import securityConfig from './config/security';
 
 const app = Fastify({ logger: true });
 

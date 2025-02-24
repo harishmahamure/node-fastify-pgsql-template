@@ -21,7 +21,7 @@ export default [
     },
     ignores: ['migrations/**/*'],
     rules: {
-      'prettier/prettier': 'off',
+      'prettier/prettier': 'error',
       'no-console': 'warn',
       'import/order': [
         'error',

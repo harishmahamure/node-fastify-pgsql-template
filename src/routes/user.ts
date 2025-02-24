@@ -1,17 +1,17 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance } from 'fastify';
 
-import UserController from "../controllers/user";
-import { LoginRequestDTO, RegisterRequestDTO } from "../dto/user";
+import UserController from '../controllers/user';
+import { LoginRequestDTO, RegisterRequestDTO } from '../dto/user';
 
 export default async function userRoutes(fastify: FastifyInstance) {
-  fastify.post("/login", {
+  fastify.post('/login', {
     schema: {
       body: LoginRequestDTO,
     },
     handler: UserController.login,
   });
 
-  fastify.post("/register", {
+  fastify.post('/register', {
     schema: {
       body: RegisterRequestDTO,
     },

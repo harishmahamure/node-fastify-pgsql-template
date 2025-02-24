@@ -1,8 +1,8 @@
-import { UserType } from "../constants/user-types";
-import { RegisterRequest } from "../dto/user";
-import { UserRepository } from "../repositories/user";
-import { AuthUtil } from "../utils/jwt";
-import { SecurityUtil } from "../utils/password";
+import { UserType } from '../constants/user-types';
+import { RegisterRequest } from '../dto/user';
+import { UserRepository } from '../repositories/user';
+import { AuthUtil } from '../utils/jwt';
+import { SecurityUtil } from '../utils/password';
 
 interface UserRegisterData extends RegisterRequest {
   role: UserType;
@@ -15,17 +15,13 @@ export class UserService {
     const salt = SecurityUtil.generateSalt();
 
     if (!user) {
-      throw new Error("Invalid credentials");
+      throw new Error('Invalid credentials');
     }
 
-    const isValidPassword = SecurityUtil.comparePassword(
-      password,
-      salt,
-      user.password,
-    );
+    const isValidPassword = SecurityUtil.comparePassword(password, salt, user.password);
 
     if (!isValidPassword || !user) {
-      throw new Error("Invalid credentials");
+      throw new Error('Invalid credentials');
     }
 
     return {
@@ -46,7 +42,7 @@ export class UserService {
     const userExists = await UserRepository.findUserByEmail(user.email);
 
     if (userExists) {
-      throw new Error("User already exists");
+      throw new Error('User already exists');
     }
 
     const salt = SecurityUtil.generateSalt();

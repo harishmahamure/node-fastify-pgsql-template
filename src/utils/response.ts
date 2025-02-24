@@ -1,4 +1,4 @@
-import { FastifyReply } from "fastify";
+import { FastifyReply } from 'fastify';
 
 export class ResponseUtil {
   static success<T>(res: FastifyReply, message: string, data: T = {} as T) {
