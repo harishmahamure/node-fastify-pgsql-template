@@ -14,7 +14,7 @@ export class SecurityUtil {
   static comparePassword(
     inputPassword: string,
     salt: string,
-    hash: string
+    hash: string,
   ): boolean {
     return SecurityUtil.hashPassword(inputPassword, salt) === hash;
   }

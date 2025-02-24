@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+
 import { UserType } from "../constants/user-types";
 import { LoginRequest, RegisterRequest } from "../dto/user";
 import { UserService } from "../services/users";
@@ -16,7 +17,7 @@ export default class UserController {
       return ResponseUtil.success(res, "Login successful", {
         ...tokens,
       });
-    } catch (error) {
+    } catch (_error) {
       return ResponseUtil.error(res, "Login failed");
     }
   }
@@ -39,7 +40,7 @@ export default class UserController {
       return ResponseUtil.success(res, "Register successful", {
         user,
       });
-    } catch (error) {
+    } catch (_error) {
       return ResponseUtil.error(res, "Register failed");
     }
   }

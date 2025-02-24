@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+
 import { AuthUtil } from "../utils/jwt";
 
 declare module "fastify" {
@@ -24,7 +25,7 @@ export async function authenticateJWT(req: FastifyRequest, res: FastifyReply) {
     }
 
     req.user = decoded as { id: number; role: string };
-  } catch (error) {
+  } catch (_error) {
     return res
       .code(401)
       .send({ success: false, message: "Authentication failed" });

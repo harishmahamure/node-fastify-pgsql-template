@@ -1,4 +1,3 @@
-import { UserType } from "../constants/user-types";
 import { Type } from "@sinclair/typebox";
 
 export const LoginRequestDTO = Type.Object({

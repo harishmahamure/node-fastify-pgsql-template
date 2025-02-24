@@ -1,61 +1,53 @@
-import { fixupPluginRules } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import _import from "eslint-plugin-import";
-import prettier from "eslint-plugin-prettier";
-import unusedImports from "eslint-plugin-unused-imports";
-import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import pluginJs from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import unusedImports from 'eslint-plugin-unused-imports';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [...compat.extends(
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-), {
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  { files: ['**/*.{js,mjs,cjs,ts}'] },
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  prettier,
+  {
     plugins: {
-        "@typescript-eslint": typescriptEslint,
-        prettier,
-        import: fixupPluginRules(_import),
-        "unused-imports": unusedImports,
+      prettier: prettierPlugin,
+      import: importPlugin,
+      'unused-imports': unusedImports,
     },
-
-    languageOptions: {
-        globals: {
-            ...globals.node,
-        },
-
-        parser: tsParser,
-        ecmaVersion: 5,
-        sourceType: "module",
-
-        parserOptions: {
-            project: "./tsconfig.json",
-        },
-    },
-
+    ignores: ['migrations/**/*'],
     rules: {
-        "prettier/prettier": "error",
-        "no-console": "warn",
-
-        "import/order": ["error", {
-            groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
-            "newlines-between": "always",
-        }],
-
-        "unused-imports/no-unused-imports": "error",
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-var-requires": "off",
+      'prettier/prettier': 'off',
+      'no-console': 'warn',
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+        },
+      ],
+      'unused-imports/no-unused-imports': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-var-requires': ['error'],
+      "no-unused-vars": "off",
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          "args": "all",
+          "argsIgnorePattern": "^_",
+          "caughtErrors": "all",
+          "caughtErrorsIgnorePattern": "^_",
+          "destructuredArrayIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
+        }
+      ],
     },
-}];
+  },
+];
+

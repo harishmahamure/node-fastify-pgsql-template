@@ -12,7 +12,7 @@ export class UserRepository {
       return db.oneOrNone<UserModel>("SELECT * FROM users WHERE email = $1", [
         email,
       ]);
-    } catch (error) {
+    } catch (_error) {
       throw new Error("Internal Server Error");
     }
   }

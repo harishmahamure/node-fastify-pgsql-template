@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+
 import UserController from "../controllers/user";
 import { LoginRequestDTO, RegisterRequestDTO } from "../dto/user";
 
