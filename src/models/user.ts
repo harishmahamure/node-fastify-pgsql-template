@@ -1,5 +1,10 @@
 import { UserType } from "../constants/user-types";
 
+interface UTM {
+  source: string;
+  medium: string;
+  campaign: string;
+}
 export interface UserModel {
   id: number;
   firstName: string;
@@ -11,7 +16,22 @@ export interface UserModel {
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
-  utm: Record<string, string>;
+  utm: UTM;
   isVerified: boolean;
   created_at: Date;
 }
+
+export const userTable = {
+  id: "id",
+  firstName: "firstName",
+  lastName: "lastName",
+  email: "email",
+  username: "username",
+  password: "password",
+  role: "role",
+  updatedAt: "updatedAt",
+  isActive: "isActive",
+  utm: "utm",
+  isVerified: "isVerified",
+  created_at: "created_at",
+};

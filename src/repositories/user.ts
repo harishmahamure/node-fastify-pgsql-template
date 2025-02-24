@@ -1,7 +1,7 @@
 import db from "../config/db";
 import { UserType } from "../constants/user-types";
 import { RegisterRequest } from "../dto/user";
-import { UserModel } from "../models/user";
+import { UserModel, userTable } from "../models/user";
 
 interface UserRegisterData extends RegisterRequest {
   role: UserType;
@@ -27,7 +27,14 @@ export class UserRepository {
         user.username,
         user.password,
         user.role,
-      ]
+      ],
+    );
+  }
+
+  static async getUserDetails(userId: number) {
+    return db.oneOrNone<UserModel>(
+      `Select ${userTable.firstName},${userTable.id},${userTable.lastName},${userTable.email},${userTable.username},${userTable.role},},${userTable.updatedAt},${userTable.isActive}} from ${userTable.id} = $1`,
+      [userId],
     );
   }
 }
