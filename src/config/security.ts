@@ -1,6 +1,6 @@
-import { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 import fastifyHelmet from '@fastify/helmet';
+import { FastifyInstance } from 'fastify';
 
 export default async function securityConfig(app: FastifyInstance) {
   await app.register(fastifyHelmet, {
