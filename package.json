@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky",
-    "dev": "ts-node-dev src/server.ts",
+    "dev": "NODE_ENV=development ts-node-dev src/server.ts | pino-pretty",
     "migrate": "node-pg-migrate up",
     "migrate:down": "node-pg-migrate down",
     "lint": "eslint --ext .ts src",
@@ -24,7 +24,10 @@
     "fastify-plugin": "^5.0.1",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.3",
-    "pg-promise": "^11.10.2"
+    "pg-promise": "^11.10.2",
+    "pino": "^9.6.0",
+    "pino-http": "^10.4.0",
+    "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",

@@ -1,8 +1,9 @@
 import app from './app';
-import './config/env';
 import './config/db';
-import { ResponseUtil } from './utils/response';
+import './config/env';
+import logger from './config/logger';
 import { TestDto } from './dto/test';
+import { ResponseUtil } from './utils/response';
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,8 +15,8 @@ app.get('/', (_req, res) => {
 
 app.listen({ port: Number(PORT) }, (err) => {
   if (err) {
-    console.error(err);
+    logger.error(err, 'Server Error');
     process.exit(1);
   }
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  logger.info(`Server running on http://localhost:${PORT}`);
 });
