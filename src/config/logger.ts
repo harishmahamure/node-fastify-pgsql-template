@@ -2,7 +2,18 @@ import pino from 'pino';
 
 const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
-  redact: ['req.headers.authorization'],
+  redact: {
+    paths: ['req.headers.authorization', 'req.body.password'],
+    censor: '********',
+  },
+  base: null,
+  formatters: {
+    log: (object) => ({
+      timestamp: new Date().toISOString(),
+      service: process.env.SERVICE_NAME || 'fastify-app',
+      ...object,
+    }),
+  },
   transport:
     process.env.NODE_ENV === 'development'
       ? {

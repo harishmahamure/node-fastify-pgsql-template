@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 
 import logger from './config/logger';
 import securityConfig from './config/security';
+import { ApiError } from './utils/custom-error';
+import { ResponseUtil } from './utils/response';
 
 const app = Fastify({ logger: false });
 
@@ -23,6 +25,15 @@ app.addHook('onResponse', (_req, res, done) => {
   done();
 });
 
+app.setErrorHandler(async (error, _req, res) => {
+  if (error instanceof ApiError) {
+    logger.error(error, 'API Error');
+    return ResponseUtil.error(res, error.message, error.statusCode);
+  } else {
+    logger.error(error, 'Internal Server Error');
+    return ResponseUtil.error(res, 'Internal Server Error', 500);
+  }
+});
 securityConfig(app);
 
 export default app;

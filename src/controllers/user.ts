@@ -7,35 +7,27 @@ import { ResponseUtil } from '../utils/response';
 
 export default class UserController {
   static async login(req: FastifyRequest<{ Body: LoginRequest }>, res: FastifyReply) {
-    try {
-      const { email, password } = req.body;
-      const tokens = await UserService.login(email, password);
+    const { email, password } = req.body;
+    const tokens = await UserService.login(email, password);
 
-      return ResponseUtil.success(res, 'Login successful', {
-        ...tokens,
-      });
-    } catch (_error) {
-      return ResponseUtil.error(res, 'Login failed');
-    }
+    return ResponseUtil.success(res, 'Login successful', {
+      ...tokens,
+    });
   }
 
   static async register(req: FastifyRequest<{ Body: RegisterRequest }>, res: FastifyReply) {
-    try {
-      const { email, firstName, lastName, password, username } = req.body;
-      const user = await UserService.register({
-        email,
-        firstName,
-        lastName,
-        password,
-        username,
-        role: UserType.USER,
-      });
+    const { email, firstName, lastName, password, username } = req.body;
+    const user = await UserService.register({
+      email,
+      firstName,
+      lastName,
+      password,
+      username,
+      role: UserType.USER,
+    });
 
-      return ResponseUtil.success(res, 'Register successful', {
-        user,
-      });
-    } catch (_error) {
-      return ResponseUtil.error(res, 'Register failed');
-    }
+    return ResponseUtil.success(res, 'Register successful', {
+      user,
+    });
   }
 }

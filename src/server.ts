@@ -13,6 +13,14 @@ app.get('/', (_req, res) => {
   });
 });
 
+process.on('unhandledRejection', (reason) => {
+  logger.error(reason, 'Unhandled Rejection at Promise');
+});
+
+process.on('uncaughtException', (error) => {
+  logger.error(error, 'Uncaught Exception');
+});
+
 app.listen({ port: Number(PORT) }, (err) => {
   if (err) {
     logger.error(err, 'Server Error');

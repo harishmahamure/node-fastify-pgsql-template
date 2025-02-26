@@ -1,6 +1,7 @@
 import { UserType } from '../constants/user-types';
 import { RegisterRequest } from '../dto/user';
 import { UserRepository } from '../repositories/user';
+import { NotFoundError, UnauthorizedError } from '../utils/custom-error';
 import { AuthUtil } from '../utils/jwt';
 import { SecurityUtil } from '../utils/password';
 
@@ -15,13 +16,13 @@ export class UserService {
     const salt = SecurityUtil.generateSalt();
 
     if (!user) {
-      throw new Error('Invalid credentials');
+      throw new NotFoundError('User not found');
     }
 
     const isValidPassword = SecurityUtil.comparePassword(password, salt, user.password);
 
     if (!isValidPassword || !user) {
-      throw new Error('Invalid credentials');
+      throw new UnauthorizedError('Invalid credentials');
     }
 
     return {
