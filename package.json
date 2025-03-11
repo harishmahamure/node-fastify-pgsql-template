@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development ts-node-dev src/server.ts | pino-pretty",
     "migrate": "node-pg-migrate up",
     "migrate:down": "node-pg-migrate down",
-    "lint": "eslint --ext .ts src",
+    "lint": "eslint \"src/**/*.ts\" --fix",
     "lint:fix": "eslint --ext .ts src --fix",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'"
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
  */

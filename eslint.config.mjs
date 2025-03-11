@@ -20,6 +20,7 @@ export default [
       'unused-imports': unusedImports,
     },
     ignores: ['migrations/**/*'],
+    files: ['./src/**/*.{ts}'],
     rules: {
       'prettier/prettier': 'error',
       'no-console': 'warn',
